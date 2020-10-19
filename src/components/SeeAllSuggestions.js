@@ -1,0 +1,139 @@
+import React, { useEffect, useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { Typography } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import { getUsers } from "../slices/userSlice";
+import { follow, unFollow } from "../slices/authSlice";
+
+const useStyles = makeStyles((theme) => ({
+  text: {
+    margin: theme.spacing(3, 0, 1, 0),
+  },
+  paper: {
+    padding: theme.spacing(2),
+  },
+  large: {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+    cursor: "pointer",
+  },
+  btn: {
+    textTransform: "none",
+  },
+  user: {
+    margin: theme.spacing(0.5, 0),
+  },
+  cursor: {
+    cursor: "pointer",
+  },
+  gray: {
+    color: "#a7a7a7",
+  },
+}));
+
+const SuggestItem = ({ user }) => {
+  const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.user);
+
+  const handleFollow = () => {
+    dispatch(follow(user._id));
+  };
+
+  const handleUnfollow = () => {
+    dispatch(unFollow(user._id));
+  };
+
+  return (
+    <div className={classes.user}>
+      <Grid container justify="space-between" alignItems="center">
+        <Grid item>
+          <Grid container spacing={2} justify="center" alignItems="center">
+            <Grid item>
+              <Avatar
+                className={classes.large}
+                onClick={() => history.push(`/users/${user.userName}`)}
+                src={user.avatar}
+                alt="avatar"
+              />
+            </Grid>
+            <Grid item>
+              <Typography
+                className={classes.cursor}
+                variant="subtitle2"
+                onClick={() => history.push(`/users/${user.userName}`)}
+              >
+                {user.userName}
+              </Typography>
+              <Typography variant="body2" className={classes.gray}>
+                {user.displayName}
+              </Typography>
+              <Typography variant="caption" className={classes.gray}>
+                Suggested for you
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item>
+          {currentUser.following.includes(user._id) ? (
+            <Button
+              className={classes.btn}
+              variant="contained"
+              onClick={handleUnfollow}
+            >
+              Following
+            </Button>
+          ) : (
+            <Button
+              className={classes.btn}
+              variant="contained"
+              color="primary"
+              onClick={handleFollow}
+            >
+              Follow
+            </Button>
+          )}
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+
+export default function Suggested() {
+  const classes = useStyles();
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers(setUsers, setLoading));
+  }, [dispatch]);
+
+  return (
+    !loading && (
+      <Container maxWidth="md">
+        <Grid container justify="center">
+          <Grid item xs={8}>
+            <Typography className={classes.text} variant="h6">
+              Suggested
+            </Typography>
+            <Paper elevation={0} className={classes.paper}>
+              {users.map((user, index) => (
+                <SuggestItem key={index} user={user} />
+              ))}
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    )
+  );
+}
