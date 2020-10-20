@@ -4,6 +4,7 @@ import axios from "axios";
 // axios.defaults.baseURL = "/api/";
 axios.defaults.baseURL =
   "https://instagram-clone-api-server.herokuapp.com/api/";
+axios.defaults.withCredentials = true;
 
 const config = {
   header: { "content-type": "multipart/form-data" },
