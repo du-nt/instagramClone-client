@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { follow, unFollow } from "../../slices/authSlice";
 
@@ -54,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
 
 function SuggestItem({ user }) {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
 
@@ -75,18 +74,19 @@ function SuggestItem({ user }) {
               <Avatar
                 src={user.avatar}
                 alt="avatar"
-                className={classes.cursor}
-                onClick={() => history.push(`/users/${user?.userName}`)}
+                component={NavLink}
+                to={`/users/${user?.userName}`}
               />
             </Grid>
             <Grid item>
-              <Typography
+              <Link
+                component={NavLink}
                 variant="subtitle2"
-                className={classes.cursor}
-                onClick={() => history.push(`/users/${user?.userName}`)}
+                color="textPrimary"
+                to={`/users/${user.userName}`}
               >
                 {user.userName}
-              </Typography>
+              </Link>
               <Typography variant="body2" className={classes.gray}>
                 Popular
               </Typography>
@@ -115,7 +115,6 @@ function SuggestItem({ user }) {
 
 export default function SideSuggestions({ users }) {
   const classes = useStyles();
-  const history = useHistory();
   const currentUser = useSelector((state) => state.auth.user);
 
   return (
@@ -127,17 +126,20 @@ export default function SideSuggestions({ users }) {
               src={currentUser.avatar}
               alt="avatar"
               className={classes.large}
-              onClick={() => history.push(`/users/${currentUser?.userName}`)}
+              component={NavLink}
+              to={`/users/${currentUser?.userName}`}
             />
           </Grid>
           <Grid item>
-            <Typography
+            <Link
               variant="h6"
-              className={classes.userName}
-              onClick={() => history.push(`/users/${currentUser?.userName}`)}
+              component={NavLink}
+              underline="none"
+              color="textPrimary"
+              to={`/users/${currentUser?.userName}`}
             >
               {currentUser.userName}
-            </Typography>
+            </Link>
             <Typography variant="body1" color="textPrimary">
               {currentUser.displayName}
             </Typography>

@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 
+import Upload from "./Upload";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -39,6 +41,16 @@ const useStyles = makeStyles((theme) => ({
   },
   gray: {
     color: "#a7a7a7",
+  },
+  upload: {
+    // height: "320px",
+    position: "relative",
+    borderRadius: 4,
+    width: "100%",
+    border: "1px solid #dbdbdb",
+    margin: theme.spacing(4, 0),
+    padding: theme.spacing(2),
+    boxSizing: "border-box",
   },
 }));
 
@@ -125,13 +137,18 @@ export default function NoFeedSuggestions() {
     !loading && (
       <Grid container justify="center">
         {users.length === 0 ? (
-          <Typography
-            variant="body1"
-            align="center"
-            className={classes.noSuggest}
-          >
-            Right now, there's no suggestions for you
-          </Typography>
+          <Grid item md={12}>
+            <Typography
+              variant="body1"
+              align="center"
+              className={classes.noSuggest}
+            >
+              Right now, there's no suggestions for you
+            </Typography>
+            <div className={classes.upload}>
+              <Upload />
+            </div>
+          </Grid>
         ) : (
           <Grid item xs={8}>
             <Typography className={classes.text} variant="h6">

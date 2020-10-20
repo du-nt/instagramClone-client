@@ -78,11 +78,13 @@ export default function Home() {
               <Post key={index} post={post} />
             ))}
 
-            {matches ? (
-              <MobileBottomSuggestions users={users.slice(0, 12)} />
-            ) : (
-              <BottomSuggestions users={users.slice(0, 12)} />
-            )}
+            {matches
+              ? users.slice(0, 12).length > 2 && (
+                  <MobileBottomSuggestions users={users.slice(0, 12)} />
+                )
+              : users.slice(0, 12).length > 3 && (
+                  <BottomSuggestions users={users.slice(0, 12)} />
+                )}
           </Grid>
 
           {!matches && (
