@@ -1,4 +1,4 @@
-## instagramClone-client
+# Instagram Clone Frontend
 Instagram clone using MERN stack.
 
 This is the frontend repo built with React. If you are looking for the backend repo, [click here](https://github.com/yaokaoya/instagramClone-server)
