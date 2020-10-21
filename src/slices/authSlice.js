@@ -61,12 +61,16 @@ export const register = (
   }
 };
 
-export const login = (values, goBack, { setErrors, resetForm }) => async (
-  dispatch
-) => {
+export const login = (
+  values,
+  goBack,
+  setIsRedirect,
+  { setErrors, resetForm }
+) => async (dispatch) => {
   try {
     const { data } = await axios.post("/auth/login", values);
     resetForm();
+    setIsRedirect(false);
     dispatch(setCurrentUser(data));
     goBack();
   } catch (error) {

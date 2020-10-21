@@ -58,17 +58,18 @@ export const GoHomeIfLogged = ({
   ...rest
 }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [isRedirect, setIsRedirect] = React.useState(true);
   return (
     <Route
       {...rest}
       render={(props) =>
-        !isAuthenticated ? (
+        isAuthenticated && isRedirect ? (
+          <Redirect to="/" />
+        ) : (
           <>
             {hasHeader && <Header />}
-            <Component {...props} />
+            <Component {...props} setIsRedirect={setIsRedirect} />
           </>
-        ) : (
-          <Redirect to="/" />
         )
       }
     />

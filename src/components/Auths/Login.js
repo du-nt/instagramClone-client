@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-export default function Login() {
+export default function Login({ setIsRedirect }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -95,7 +95,7 @@ export default function Login() {
       const goBack = () => {
         history.replace(from);
       };
-      dispatch(login(values, goBack, { setErrors, resetForm }));
+      dispatch(login(values, goBack, setIsRedirect, { setErrors, resetForm }));
     },
   });
 
