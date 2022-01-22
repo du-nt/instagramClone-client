@@ -4,10 +4,11 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { follow, unFollow } from "../../slices/authSlice";
+import { Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   likedUser: {
@@ -17,21 +18,18 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
   },
   cursor: {
-    cursor: "pointer",
+    textDecoration: "none",
+    backgroundColor: '#ff5722'
   },
 }));
 
 export default function Follower({ follower, handleFollowersDialogClose }) {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
   const { userName, displayName, avatar, _id } = follower;
-  const handleClick = () => {
-    handleFollowersDialogClose();
-    history.push(`/users/${userName}`);
-  };
+  const userLetter = displayName.charAt(0).toUpperCase()
 
   const handleFollow = () => {
     dispatch(follow(_id));
@@ -51,18 +49,22 @@ export default function Follower({ follower, handleFollowersDialogClose }) {
                 src={avatar}
                 alt="avatar"
                 className={classes.cursor}
-                onClick={handleClick}
-              />
+                component={NavLink}
+                to={`/users/${userName}`}
+              >
+                {userLetter}
+              </Avatar>
             </Grid>
             <Grid item>
-              <Typography
-                className={classes.cursor}
-                variant="subtitle2"
-                onClick={handleClick}
+              <Link
+                variant="subtitle1"
+                component={NavLink}
+                to={`/users/${userName}`}
+                color='inherit'
               >
                 {userName}
-              </Typography>
-              <Typography variant="body1">{displayName}</Typography>
+              </Link>
+              <Typography color='textSecondary' variant="body1">{displayName}</Typography>
             </Grid>
           </Grid>
         </Grid>

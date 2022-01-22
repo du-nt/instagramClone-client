@@ -4,12 +4,11 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { Typography } from "@material-ui/core";
+import { Link, Typography } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import Upload from "./Upload";
-
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 import { getUsers } from "../../slices/userSlice";
 import { follow, unFollow } from "../../slices/authSlice";
@@ -25,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(6),
     height: theme.spacing(6),
     cursor: "pointer",
+    textDecoration: "none",
+    backgroundColor: '#ff5722'
   },
   btn: {
     textTransform: "none",
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   gray: {
-    color: "#a7a7a7",
+    color: "#707070",
   },
   upload: {
     // height: "320px",
@@ -56,9 +57,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SuggestItem = ({ user }) => {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
+  const userLetter = user.displayName.charAt(0).toUpperCase()
 
   const handleFollow = () => {
     dispatch(follow(user._id));
@@ -76,24 +77,29 @@ const SuggestItem = ({ user }) => {
             <Grid item>
               <Avatar
                 className={classes.large}
-                onClick={() => history.push(`/users/${user.userName}`)}
                 src={user.avatar}
                 alt="avatar"
-              />
+                component={NavLink}
+                to={`/users/${user.userName}`}
+              >
+                {userLetter}
+              </Avatar>
             </Grid>
             <Grid item>
-              <Typography
+              <Link
                 className={classes.cursor}
                 variant="subtitle2"
-                onClick={() => history.push(`/users/${user.userName}`)}
+                component={NavLink}
+                to={`/users/${user.userName}`}
+                color='inherit'
               >
                 {user.userName}
-              </Typography>
+              </Link>
               <Typography variant="body2" className={classes.gray}>
                 {user.displayName}
               </Typography>
               <Typography variant="caption" className={classes.gray}>
-                Suggested for you
+                {user.displayName.length > 10 ? "Suggested for you" : "Popular"}
               </Typography>
             </Grid>
           </Grid>

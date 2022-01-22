@@ -200,8 +200,8 @@ export const removePhoto = (toast) => async (dispatch) => {
 
 export const follow = (_id) => async (dispatch) => {
   try {
-    await axios.get(`/users/user/${_id}/follow`);
     dispatch(followSuccess(_id));
+    await axios.get(`/users/user/${_id}/follow`);
   } catch (error) {
     console.log(error);
   }
@@ -209,8 +209,8 @@ export const follow = (_id) => async (dispatch) => {
 
 export const unFollow = (_id) => async (dispatch) => {
   try {
-    await axios.get(`/users/user/${_id}/unFollow`);
     dispatch(unFollowSuccess(_id));
+    await axios.get(`/users/user/${_id}/unFollow`);
   } catch (error) {
     console.log(error);
   }

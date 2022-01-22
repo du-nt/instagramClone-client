@@ -53,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     wordBreak: "break-word",
   },
+  avatar: {
+    textDecoration: "none",
+    backgroundColor: '#ff5722'
+  }
 }));
 
 export default function Comment({ comment, noIcon }) {
@@ -79,7 +83,10 @@ export default function Comment({ comment, noIcon }) {
         src={user.avatar}
         component={NavLink}
         to={`/users/${user.userName}`}
-      />
+        className={classes.avatar}
+      >
+        {user.userName.charAt(0).toUpperCase()}
+      </Avatar>
       <div className={classes.info}>
         <div>
           <Link

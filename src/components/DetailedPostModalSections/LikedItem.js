@@ -4,8 +4,9 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
 import { follow, unFollow } from "../../slices/authSlice";
 import { followProfile, unFollowProfile } from "../../slices/userSlice";
@@ -20,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
   cursor: {
     cursor: "pointer",
   },
+  avatar: {
+    backgroundColor: "#ff5722",
+    textDecoration: "none",
+  }
 }));
 
 export default function LikedItem({
@@ -28,7 +33,6 @@ export default function LikedItem({
   handleLikeDialogClose,
 }) {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
@@ -42,11 +46,6 @@ export default function LikedItem({
     userName: user.userName,
     displayName: user.displayName,
     avatar: user.avatar,
-  };
-
-  const handleClick = () => {
-    handleLikeDialogClose();
-    history.push(`/users/${userName}`);
   };
 
   const handleFollow = () => {
@@ -70,19 +69,24 @@ export default function LikedItem({
               <Avatar
                 src={avatar}
                 alt="avatar"
-                className={classes.cursor}
-                onClick={handleClick}
-              />
+                className={classes.avatar}
+                component={NavLink}
+                to={`/users/${userName}`}
+              >
+                {displayName.charAt(0).toUpperCase()}
+              </Avatar>
             </Grid>
             <Grid item>
-              <Typography
+              <Link
                 className={classes.cursor}
                 variant="subtitle2"
-                onClick={handleClick}
+                component={NavLink}
+                to={`/users/${userName}`}
+                color="inherit"
               >
                 {userName}
-              </Typography>
-              <Typography variant="body1">{displayName}</Typography>
+              </Link>
+              <Typography color="textSecondary" variant="body1">{displayName}</Typography>
             </Grid>
           </Grid>
         </Grid>

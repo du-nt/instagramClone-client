@@ -45,9 +45,9 @@ export const getProfile = (
 
 export const followProfile = (_id, newUser) => async (dispatch) => {
   try {
-    await axios.get(`/users/user/${_id}/follow`);
     dispatch(followComplete(newUser));
     dispatch(followSuccess(_id));
+    await axios.get(`/users/user/${_id}/follow`);
   } catch (error) {
     console.log(error);
   }
@@ -55,9 +55,9 @@ export const followProfile = (_id, newUser) => async (dispatch) => {
 
 export const unFollowProfile = (_id, newUser) => async (dispatch) => {
   try {
-    await axios.get(`/users/user/${_id}/unFollow`);
     dispatch(unFollowComplete(newUser));
     dispatch(unFollowSuccess(_id));
+    await axios.get(`/users/user/${_id}/unFollow`);
   } catch (error) {
     console.log(error.response.data);
   }

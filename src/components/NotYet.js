@@ -4,12 +4,8 @@ import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
     textAlign: "center",
+    marginTop: 300
   },
 }));
 
@@ -17,7 +13,7 @@ export default function NotYet() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Typography variant="h4">This feature is not yet implemented</Typography>
+      <Typography color='textSecondary' variant="h5">This feature is not yet implemented</Typography>
     </div>
   );
 }

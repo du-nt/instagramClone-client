@@ -31,13 +31,16 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   gray: {
-    color: "#a8a8a8",
+    color: "#5e5e5e",
     fontWeight: 100,
   },
   noResults: {
     color: "#8e8e8e",
     padding: theme.spacing(2),
   },
+  avatar: {
+    backgroundColor: '#ff5722',
+  }
 }));
 
 export default function SearchResults({ users, handleDelete }) {
@@ -57,11 +60,13 @@ export default function SearchResults({ users, handleDelete }) {
               >
                 <Grid container alignItems="center" spacing={1}>
                   <Grid item>
-                    <Avatar src={user.avatar} alt="avatar" />
+                    <Avatar className={classes.avatar} src={user.avatar} alt="avatar" >
+                      {user.displayName.charAt(0).toUpperCase()}
+                    </Avatar>
                   </Grid>
                   <Grid item>
                     <Typography variant="subtitle2">{user.userName}</Typography>
-                    <Typography variant="body1" className={classes.gray}>
+                    <Typography variant="body2" className={classes.gray}>
                       {user.displayName}
                     </Typography>
                   </Grid>

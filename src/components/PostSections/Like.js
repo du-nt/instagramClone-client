@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
     marginRight: theme.spacing(1),
     cursor: "pointer",
+    fontSize: '0.95rem',
+    backgroundColor: '#ff5722'
   },
   likes: {
     display: "flex",
@@ -21,7 +23,13 @@ const useStyles = makeStyles((theme) => ({
   },
   cursor: {
     cursor: "pointer",
+    fontWeight: 500,
+    color: 'inherit',
   },
+  userText: {
+    color: 'inherit',
+    fontWeight: 500
+  }
 }));
 
 export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
@@ -41,7 +49,9 @@ export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
               src={likes[0].avatar}
               className={classes.small}
               onClick={() => handleLikeDialogOpen()}
-            />
+            >
+              {likes[0].displayName.charAt(0).toUpperCase()}
+            </Avatar>
           )}
           <Typography variant="subtitle2">1 like</Typography>
         </>
@@ -52,10 +62,17 @@ export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
             src={likedToDisplay.avatar}
             className={classes.small}
             onClick={() => handleLikeDialogOpen()}
-          />
-          <Typography component="h3">
+          >
+            {likedToDisplay.displayName.charAt(0).toUpperCase()}
+          </Avatar>
+          <Typography component="div" variant="body2" >
             Like by<span> </span>
-            <Link component={NavLink} to={`/users/${likedToDisplay.userName}`}>
+            <Link
+              className={classes.userText}
+              underline='none'
+              component={NavLink}
+              to={`/users/${likedToDisplay.userName}`}
+            >
               {likedToDisplay.userName}
             </Link>
             <span> </span>and<span> </span>
@@ -64,6 +81,7 @@ export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
               color="primary"
               className={classes.cursor}
               onClick={() => handleLikeDialogOpen()}
+              variant="body2"
             >
               1 other
             </Typography>
@@ -73,13 +91,15 @@ export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
         <>
           <Avatar
             alt="Remy Sharp"
-            src={likedToDisplay.avatar}
+            src={likedToDisplay._id}
             className={classes.small}
             onClick={() => handleLikeDialogOpen()}
-          />
-          <Typography color="textSecondary" component="h3">
+          >
+            {likedToDisplay.displayName.charAt(0).toUpperCase()}
+          </Avatar>
+          <Typography component="div" variant="body2">
             Like by<span> </span>
-            <Link component={NavLink} to={`/users/${likedToDisplay.userName}`}>
+            <Link className={classes.userText} underline='none' component={NavLink} to={`/users/${likedToDisplay.userName}`}>
               {likedToDisplay.userName}
             </Link>
             <span> </span>and<span> </span>
@@ -88,6 +108,7 @@ export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
               color="primary"
               className={classes.cursor}
               onClick={() => handleLikeDialogOpen()}
+              variant="body2"
             >
               {likesCount - 1} others
             </Typography>

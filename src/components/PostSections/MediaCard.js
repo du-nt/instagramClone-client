@@ -4,6 +4,7 @@ import "swiper/css/swiper.css";
 import "./MediaCard.css";
 
 export default function MediaCard({ files }) {
+
   const params = {
     slidesPerView: 1,
     spaceBetween: 5,
@@ -28,13 +29,13 @@ export default function MediaCard({ files }) {
   return files.length > 1 ? (
     <Swiper {...params}>
       {files.map((file, index) => (
-        <img key={index} src={file} className="image" alt={file} />
+        <img key={index} src={file} className="image" alt="alt" />
       ))}
     </Swiper>
   ) : (
     <Swiper {...singleImageParams}>
       {files.map((file, index) => (
-        <img key={index} src={file} className="image" alt={file} />
+        <img key={index} src={file} className="image" alt="alt" />
       ))}
     </Swiper>
   );

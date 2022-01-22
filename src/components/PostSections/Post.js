@@ -34,7 +34,7 @@ import { follow } from "../../slices/authSlice";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    marginBottom: 65,
+    marginBottom: theme.spacing(3),
   },
   actionBtn: {
     fontSize: 28,
@@ -47,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     cursor: "pointer",
+    textDecoration: "none",
+    backgroundColor: "#ff5722",
   },
   userName: {
     cursor: "pointer",
@@ -97,6 +99,8 @@ export default function Post({ post }) {
     text: title,
   };
 
+  const userLetter = author?.displayName.charAt(0).toUpperCase();
+
   const time = timeSince(createdAt);
 
   const handleOpen = () => {
@@ -137,7 +141,9 @@ export default function Post({ post }) {
               src={author.avatar}
               component={NavLink}
               to={`/users/${author.userName}`}
-            />
+            >
+              {userLetter}
+            </Avatar>
           }
           title={
             <>
@@ -146,6 +152,7 @@ export default function Post({ post }) {
                 variant="subtitle2"
                 color="textPrimary"
                 to={`/users/${author.userName}`}
+                underline="none"
               >
                 {author.userName}
               </Link>
@@ -169,21 +176,20 @@ export default function Post({ post }) {
               <MoreHorizIcon />
             </IconButton>
           }
-          //   classes={{
-          //     content: classes.headerContent,
-          //     action: classes.headerAction,
-          //   }}
+        //   classes={{
+        //     content: classes.headerContent,
+        //     action: classes.headerAction,
+        //   }}
         />
         <CardMedia
-          className={classes.media}
-          component={() => <MediaCard files={filePaths} />}
+          children={<MediaCard files={filePaths} />}
         />
         <CardActions disableSpacing>
           <LikePost isLiked={isLiked} id={_id} />
           <IconButton
             aria-label="comment"
             component={NavLink}
-            to={`/p/${_id}`}
+            to={{ pathname: `/p/${_id}`, state: { background: location } }}
             className={classes.actionBtn}
           >
             <ChatBubbleOutlineOutlinedIcon fontSize="inherit" />
@@ -250,6 +256,7 @@ export default function Post({ post }) {
           handleLikeDialogClose={handleLikeDialogClose}
         />
       )}
+
     </>
   );
 }

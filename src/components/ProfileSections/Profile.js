@@ -69,10 +69,14 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(23),
     height: theme.spacing(23),
     cursor: "pointer",
+    fontSize: '6rem',
+    backgroundColor: '#ff5722'
   },
   noCursor: {
     width: theme.spacing(23),
     height: theme.spacing(23),
+    fontSize: '6rem',
+    backgroundColor: '#ff5722'
   },
   gray: {
     color: "#676767",
@@ -81,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
   isCursor: {
     cursor: "pointer",
   },
+  displayName: {
+    fontWeight: 500
+  }
 }));
 
 export default function Profile() {
@@ -113,6 +120,8 @@ export default function Profile() {
     following,
   } = useSelector((state) => state.user);
 
+  const avatarLetter = user?.displayName.charAt(0).toUpperCase();
+  const userLetter = displayName && displayName.charAt(0).toUpperCase();
   const isMe = isAuthenticated && user._id === _id;
   const isFollowing = isAuthenticated && user.following.includes(_id);
   const mineAvatar = isAuthenticated && user.avatar;
@@ -127,6 +136,8 @@ export default function Profile() {
   useEffect(() => {
     isMountedRef.current = true;
     setLoading(true);
+    setFollowersDialog(false)
+    setFollowingDialog(false)
     dispatch(
       getProfile(userNameParam, setLoading, isMountedRef.current, setIsDead)
     );
@@ -208,7 +219,9 @@ export default function Profile() {
             src={isMe ? mineAvatar : avatar}
             className={isMe ? classes.large : classes.noCursor}
             onClick={isMe ? handleModalOpen : null}
-          />
+          >
+            {isMe ? avatarLetter : userLetter}
+          </Avatar>
           {isMe && (
             <input
               type="file"
@@ -278,7 +291,7 @@ export default function Profile() {
             </div>
             <div className={classes.info}>
               <Typography
-                variant="h6"
+                variant="subtitle1"
                 onClick={!isAuthenticated ? showModal : null}
                 className={!isAuthenticated ? classes.isCursor : null}
               >
@@ -292,16 +305,16 @@ export default function Profile() {
                   !isAuthenticated
                     ? classes.margin
                     : !isMe && !followersCount
-                    ? classes.notCursor
-                    : classes.margin
+                      ? classes.notCursor
+                      : classes.margin
                 }
-                variant="h6"
+                variant="subtitle1"
                 onClick={
                   !isAuthenticated
                     ? showModal
                     : !isMe && !followersCount
-                    ? null
-                    : handleFollowersDialogOpen
+                      ? null
+                      : handleFollowersDialogOpen
                 }
               >
                 {followersCount}
@@ -314,16 +327,16 @@ export default function Profile() {
                   !isAuthenticated
                     ? classes.margin
                     : !isMe && !followingCount
-                    ? classes.notCursor
-                    : classes.margin
+                      ? classes.notCursor
+                      : classes.margin
                 }
-                variant="h6"
+                variant="subtitle1"
                 onClick={
                   !isAuthenticated
                     ? showModal
                     : !isMe && !followingCount
-                    ? null
-                    : handleFollowingDialogOpen
+                      ? null
+                      : handleFollowingDialogOpen
                 }
               >
                 {isMe ? user.followingCount : followingCount}
@@ -331,7 +344,7 @@ export default function Profile() {
               </Typography>
             </div>
             <div className={classes.more}>
-              <Typography variant="h6">{displayName}</Typography>
+              <Typography className={classes.displayName} variant="subtitle1">{displayName}</Typography>
               {bio && <Typography variant="body1">{bio}</Typography>}
               {website && (
                 <Link

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     width: "74%",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    marginTop: 220,
   },
 }));
 export default function EditProfile() {
@@ -43,12 +43,12 @@ export default function EditProfile() {
             <ChangePassword />
           </Route>
           <Route path={`${path}/apps`}>
-            <Typography variant="h5" className={classes.not}>
+            <Typography color='textSecondary' variant="h5" className={classes.not}>
               This feature is not yet implemented
             </Typography>
           </Route>
           <Route path={`${path}/email`}>
-            <Typography variant="h5" className={classes.not}>
+            <Typography color='textSecondary' variant="h5" className={classes.not}>
               This feature is not yet implemented
             </Typography>
           </Route>

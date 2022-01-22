@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(8),
     height: theme.spacing(8),
     margin: theme.spacing(3, 0, 1.5, 0),
+    textDecoration: "none",
+    backgroundColor: '#ff5722',
+    fontSize: '2rem',
   },
   subtitle: {
     color: "#969696",
@@ -99,7 +102,7 @@ export default function BottomSuggestions({ users }) {
       </div>
 
       <Swiper {...params}>
-        {users.map(({ avatar, userName, _id }, index) => (
+        {users.map(({ displayName, avatar, userName, _id }, index) => (
           <div className={classes.slide} key={index}>
             <Avatar
               alt="avatar"
@@ -107,18 +110,20 @@ export default function BottomSuggestions({ users }) {
               className={classes.large}
               component={NavLink}
               to={`/users/${userName}`}
-            />
+            >
+              {displayName.charAt(0).toUpperCase()}
+            </Avatar>
             <Link
               component={NavLink}
               to={`/users/${userName}`}
-              variant="h6"
+              variant="subtitle1"
               underline="none"
               color="inherit"
             >
               {userName}
             </Link>
             <Typography className={classes.subtitle} variant="body2">
-              Popular
+              {displayName.length > 10 ? "Suggested for you" : "Popular"}
             </Typography>
             {currentUser.following.includes(_id) ? (
               <Button

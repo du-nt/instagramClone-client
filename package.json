@@ -21,7 +21,7 @@
     "react-scripts": "^3.4.3",
     "react-toastify": "^6.0.8",
     "serve": "^11.3.2",
-    "swiper": "^5.3.0",
+    "swiper": "^5.4.5",
     "yup": "^0.28.3"
   },
   "scripts": {
@@ -46,5 +46,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "http-proxy-middleware": "^2.0.1"
+  }
 }

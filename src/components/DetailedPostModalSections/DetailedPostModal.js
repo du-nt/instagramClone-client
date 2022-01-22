@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     borderTop: "1px solid #dbdbdb",
     display: "flex",
-    height: 62,
+    minHeight: 62,
     boxSizing: "border-box",
   },
   content: {
@@ -120,6 +120,10 @@ const useStyles = makeStyles((theme) => ({
   cursor: {
     cursor: "pointer",
   },
+  avatar: {
+    textDecoration: "none",
+    backgroundColor: '#ff5722'
+  }
 }));
 
 const CommentCssTextField = withStyles({
@@ -290,7 +294,9 @@ export default function DetailedPostModal({ fromProfile }) {
       ) : (
         <div className={classes.cover}>
           <div className={classes.left}>
-            <CardMedia component={() => <MediaCard files={filePaths} />} />
+            <CardMedia
+              children={<MediaCard files={filePaths} />}
+            />
           </div>
           <div className={classes.content}>
             <Card variant="outlined" className={classes.card}>
@@ -302,7 +308,9 @@ export default function DetailedPostModal({ fromProfile }) {
                     src={author.avatar}
                     component={NavLink}
                     to={`/users/${author.userName}`}
-                  />
+                  >
+                    {author.userName.charAt(0).toUpperCase()}
+                  </Avatar>
                 }
                 action={
                   <IconButton aria-label="settings" onClick={handleOpen}>
@@ -316,6 +324,7 @@ export default function DetailedPostModal({ fromProfile }) {
                       variant="subtitle2"
                       color="textPrimary"
                       to={`/users/${author.userName}`}
+                      underline="none"
                     >
                       {author.userName}
                     </Link>

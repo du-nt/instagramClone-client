@@ -132,19 +132,7 @@ export default function ChangePassword() {
           <Typography variant="h6">{userName}</Typography>
         </div>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className={classes.hiddenSection}>
-          <TextField
-            variant="outlined"
-            size="small"
-            autoComplete="userName"
-            required
-            fullWidth
-            type="text"
-            margin="normal"
-            value={userName}
-          />
-        </div>
+      <form onSubmit={handleSubmit} >
         <div className={classes.section}>
           <Typography variant="h6" className={classes.leftPart}>
             Old Password
@@ -154,7 +142,7 @@ export default function ChangePassword() {
               error={touched.oldPassword && !!errors.oldPassword}
               variant="outlined"
               size="small"
-              autoComplete="oldPassword"
+              autoComplete="off"
               name="oldPassword"
               required
               fullWidth
@@ -197,7 +185,6 @@ export default function ChangePassword() {
               name="newPassword"
               type={showNewPassword ? "text" : "password"}
               id="newPassword"
-              autoComplete="current-password"
               margin="normal"
               onBlur={handleBlur}
               onChange={handleChange}
@@ -222,7 +209,6 @@ export default function ChangePassword() {
               name="newPassword2"
               id="newPassword2"
               type={showNewPassword ? "text" : "password"}
-              autoComplete="current-password2"
               margin="normal"
               onBlur={handleBlur}
               onChange={handleChange}

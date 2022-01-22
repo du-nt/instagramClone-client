@@ -198,9 +198,6 @@ export default function ResetPassword() {
   const success = (
     <Container maxWidth="sm" className={classes.contain}>
       <Grid container justify="center" alignContent="center">
-        <NavLink to="/">home</NavLink>
-      </Grid>
-      <Grid container justify="center" alignContent="center">
         <Grid item xs={12} md={8}>
           <Paper elevation={0} className={classes.paperstyle}>
             <Grid

@@ -15,7 +15,6 @@ import { getPost } from "../../slices/postSlice";
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(8),
-    padding: theme.spacing(0, 10),
   },
   divider: {
     margin: theme.spacing(7, 0),

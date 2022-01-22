@@ -105,7 +105,7 @@ export const getPosts = (setPosts, setLoading) => async () => {
     const { data } = await axios.get("/posts");
     setPosts(data);
     setLoading(false);
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const addPost = (formData, { resetForm, onResetFile }) => async (
@@ -137,11 +137,11 @@ export const getFeed = (setLoading) => async (dispatch) => {
 
 export const toggleLike = (_id, user, setTwoPlaces) => async (dispatch) => {
   try {
-    await axios.get(`/posts/${_id}/toggleLike`);
     dispatch(toggleLikePostSuccess({ _id, user }));
     if (setTwoPlaces) {
       dispatch(toggleLikePostDetailSuccess(user));
     }
+    await axios.get(`/posts/${_id}/toggleLike`);
   } catch (error) {
     console.log(error.message);
   }
@@ -149,8 +149,8 @@ export const toggleLike = (_id, user, setTwoPlaces) => async (dispatch) => {
 
 export const toggleLikeDetailPost = (_id, user) => async (dispatch) => {
   try {
-    await axios.get(`/posts/${_id}/toggleLike`);
     dispatch(toggleLikePostDetailSuccess(user));
+    await axios.get(`/posts/${_id}/toggleLike`);
   } catch (error) {
     console.log(error.message);
   }
@@ -158,19 +158,19 @@ export const toggleLikeDetailPost = (_id, user) => async (dispatch) => {
 
 export const toggleSave = (id) => async (dispatch) => {
   try {
-    await axios.get(`/posts/${id}/toggleSave`);
     dispatch(toggleSaveSuccess(id));
-  } catch (error) {}
+    await axios.get(`/posts/${id}/toggleSave`);
+  } catch (error) { }
 };
 
 export const toggleSaveDetailPost = (id, setTwoPlaces) => async (dispatch) => {
   try {
-    await axios.get(`/posts/${id}/toggleSave`);
     dispatch(toggleSaveDetailPostSuccess());
     if (setTwoPlaces) {
       dispatch(toggleSaveSuccess(id));
     }
-  } catch (error) {}
+    await axios.get(`/posts/${id}/toggleSave`);
+  } catch (error) { }
 };
 
 export const addComment = (_id, values, resetForm) => async (dispatch) => {
@@ -200,7 +200,7 @@ export const addCommentOnDetailPost = (
     if (setTwoPlaces) {
       dispatch(addCommentSuccess({ _id, comment: data }));
     }
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getPost = (postId, setLoading, setIsDead) => async (
@@ -225,7 +225,7 @@ export const getMorePosts = (_id, postId, setPosts) => async () => {
   try {
     const { data } = await axios.get(`/posts/${_id}/morePosts/${postId}`);
     setPosts(data);
-  } catch (error) {}
+  } catch (error) { }
 };
 
 const { reducer, actions } = post;

@@ -27,13 +27,13 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(1),
   },
   suggest: {
-    color: "#8e8e8e",
+    color: "#787878",
   },
   suggestUser: {
     padding: theme.spacing(0.5, 0),
   },
   gray: {
-    color: "#a7a7a7",
+    color: "#787878",
   },
   noSuggest: {
     color: "#a7a7a7",
@@ -46,16 +46,24 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(8),
     height: theme.spacing(8),
     cursor: "pointer",
+    textDecoration: "none",
+    fontSize: '2rem',
+    backgroundColor: '#3f51b5',
   },
   cursor: {
     cursor: "pointer",
   },
+  avatar: {
+    textDecoration: "none",
+    backgroundColor: '#ff5722'
+  }
 }));
 
 function SuggestItem({ user }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
+  const userLetter = user?.displayName.charAt(0).toUpperCase()
 
   const handleFollow = () => {
     dispatch(follow(user._id));
@@ -76,7 +84,10 @@ function SuggestItem({ user }) {
                 alt="avatar"
                 component={NavLink}
                 to={`/users/${user?.userName}`}
-              />
+                className={classes.avatar}
+              >
+                {userLetter}
+              </Avatar>
             </Grid>
             <Grid item>
               <Link
@@ -88,7 +99,7 @@ function SuggestItem({ user }) {
                 {user.userName}
               </Link>
               <Typography variant="body2" className={classes.gray}>
-                Popular
+                {user.displayName.length > 10 ? "Suggested for you" : "Popular"}
               </Typography>
             </Grid>
           </Grid>
@@ -116,6 +127,8 @@ function SuggestItem({ user }) {
 export default function SideSuggestions({ users }) {
   const classes = useStyles();
   const currentUser = useSelector((state) => state.auth.user);
+  const avatarLetter =
+    currentUser?.displayName.charAt(0).toUpperCase()
 
   return (
     <div className={classes.root}>
@@ -128,7 +141,9 @@ export default function SideSuggestions({ users }) {
               className={classes.large}
               component={NavLink}
               to={`/users/${currentUser?.userName}`}
-            />
+            >
+              {avatarLetter}
+            </Avatar>
           </Grid>
           <Grid item>
             <Link

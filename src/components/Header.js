@@ -39,7 +39,7 @@ import { logout } from "../slices/authSlice";
 import { search } from "../slices/userSlice";
 
 const logoUrl =
-  "url(https://logos-download.com/wp-content/uploads/2016/03/Instagram_logo.png)";
+  "url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png)";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: logoUrl,
     backgroundRepeat: "no-repeat",
     backgroundSize: "101%",
-    backgroundPosition: "0px 6px",
   },
   search: {
     width: "50%",
@@ -125,6 +124,8 @@ const useStyles = makeStyles((theme) => ({
   av: {
     width: theme.spacing(3),
     height: theme.spacing(3),
+    backgroundColor: '#ff5722',
+    fontSize: '0.95rem',
   },
   list: {
     padding: 0,
@@ -230,10 +231,11 @@ export default function Header() {
     <Menu
       classes={{ list: classes.list }}
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      transformOrigin={{ vertical: "top", horizontal: "center" }}
+      getContentAnchorEl={null}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
@@ -318,7 +320,9 @@ export default function Header() {
       </MenuItem>
       <MenuItem onClick={handleMenuOpen}>
         <IconButton>
-          <Avatar className={classes.av} alt="avatar" src={user?.avatar} />
+          <Avatar className={classes.av} alt="avatar" src={user?.avatar} >
+            {user?.displayName.charAt(0).toUpperCase()}
+          </Avatar>
         </IconButton>
         <p>My account</p>
       </MenuItem>
@@ -396,7 +400,9 @@ export default function Header() {
         {active4 ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </IconButton>
       <IconButton onClick={handleMenuOpen}>
-        <Avatar className={classes.av} alt="avatar" src={user?.avatar} />
+        <Avatar className={classes.av} alt="avatar" src={user?.avatar}>
+          {user?.displayName.charAt(0).toUpperCase()}
+        </Avatar>
       </IconButton>
     </div>
   );

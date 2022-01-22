@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
   hidden: {
     display: "none",
   },
+  tabroot: {
+    marginBottom: theme.spacing(4)
+  }
 }));
 
 export default function ProfileTabs({ isMe, handleShowModal }) {
@@ -43,7 +46,7 @@ export default function ProfileTabs({ isMe, handleShowModal }) {
 
   return (
     <div className={classes.root}>
-      <Tabs centered value={pathname}>
+      <Tabs centered value={pathname} className={classes.tabroot} >
         <Tab
           value={url}
           label="Posts"

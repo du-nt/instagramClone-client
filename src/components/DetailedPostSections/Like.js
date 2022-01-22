@@ -1,10 +1,10 @@
 import React from "react";
-
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   small: {
@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
     marginRight: theme.spacing(1),
     cursor: "pointer",
+    backgroundColor: '#ff5722',
+    fontSize: '0.95rem'
   },
   likes: {
     display: "flex",
@@ -20,13 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
   cursor: {
     cursor: "pointer",
+    fontWeight: 500,
+    color: 'inherit',
   },
+  userText: {
+    color: 'inherit',
+    fontWeight: 500
+  }
 }));
 
 export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
   const classes = useStyles();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const history = useHistory();
 
   if (!isAuthenticated)
     return (
@@ -47,7 +54,9 @@ export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
               src={likes[0].avatar}
               className={classes.small}
               onClick={() => handleLikeDialogOpen()}
-            />
+            >
+              {likes[0].userName.charAt(0).toUpperCase()}
+            </Avatar>
           )}
           <Typography variant="subtitle2">1 like</Typography>
         </>
@@ -58,23 +67,27 @@ export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
             src={likedToDisplay.avatar}
             className={classes.small}
             onClick={() => handleLikeDialogOpen()}
-          />
-          <Typography component="h3">
+          >
+            {likedToDisplay.userName.charAt(0).toUpperCase()}
+          </Avatar>
+
+          <Typography component="div" variant="body2">
             Like by<span> </span>
-            <Typography
-              display="inline"
-              color="primary"
-              className={classes.cursor}
-              onClick={() => history.push(`/users/${likedToDisplay.userName}`)}
+            <Link
+              className={classes.userText}
+              underline='none'
+              component={NavLink}
+              to={`/users/${likedToDisplay.userName}`}
             >
               {likedToDisplay.userName}
-            </Typography>
+            </Link>
             <span> </span>and<span> </span>
             <Typography
               display="inline"
               color="primary"
               className={classes.cursor}
               onClick={() => handleLikeDialogOpen()}
+              variant="body2"
             >
               1 other
             </Typography>
@@ -87,23 +100,27 @@ export default function Like({ likesCount, likes, handleLikeDialogOpen }) {
             src={likedToDisplay.avatar}
             className={classes.small}
             onClick={() => handleLikeDialogOpen()}
-          />
-          <Typography color="textSecondary" component="h3">
+          >
+            {likedToDisplay.userName.charAt(0).toUpperCase()}
+          </Avatar>
+
+          <Typography component="div" variant="body2">
             Like by<span> </span>
-            <Typography
-              display="inline"
-              color="primary"
-              className={classes.cursor}
-              onClick={() => history.push(`/users/${likedToDisplay.userName}`)}
+            <Link
+              className={classes.userText}
+              underline='none'
+              component={NavLink}
+              to={`/users/${likedToDisplay.userName}`}
             >
               {likedToDisplay.userName}
-            </Typography>
+            </Link>
             <span> </span>and<span> </span>
             <Typography
               display="inline"
               color="primary"
               className={classes.cursor}
               onClick={() => handleLikeDialogOpen()}
+              variant="body2"
             >
               {likesCount - 1} others
             </Typography>

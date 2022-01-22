@@ -1,10 +1,10 @@
 import React from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   love: {
@@ -30,18 +30,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Comment({ comment, noIcon }) {
   const { user, text } = comment;
-  const history = useHistory();
   const classes = useStyles();
 
   return (
     <div className={classes.comment}>
-      <Typography
+      <Link
         variant="subtitle2"
         className={classes.userName}
-        onClick={() => history.push(`/users/${user.userName}`)}
+        component={NavLink}
+        to={`/users/${user.userName}`}
+        color='inherit'
       >
         {user.userName}
-      </Typography>
+      </Link>
       <Typography
         variant="body2"
         color="textSecondary"

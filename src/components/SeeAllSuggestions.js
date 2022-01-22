@@ -4,11 +4,11 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { Typography } from "@material-ui/core";
+import { Link, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { getUsers } from "../slices/userSlice";
 import { follow, unFollow } from "../slices/authSlice";
@@ -16,6 +16,7 @@ import { follow, unFollow } from "../slices/authSlice";
 const useStyles = makeStyles((theme) => ({
   text: {
     margin: theme.spacing(3, 0, 1, 0),
+    fontWeight: 500
   },
   paper: {
     padding: theme.spacing(2),
@@ -24,15 +25,15 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(6),
     height: theme.spacing(6),
     cursor: "pointer",
+    backgroundColor: "#ff5722",
+    fontSize: '1.5rem',
+    textDecoration: "none",
   },
   btn: {
     textTransform: "none",
   },
   user: {
-    margin: theme.spacing(0.5, 0),
-  },
-  cursor: {
-    cursor: "pointer",
+    margin: theme.spacing(1, 0),
   },
   gray: {
     color: "#a7a7a7",
@@ -41,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SuggestItem = ({ user }) => {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
+  const userLetter = user.displayName.charAt(0).toUpperCase()
 
   const handleFollow = () => {
     dispatch(follow(user._id));
@@ -61,24 +62,28 @@ const SuggestItem = ({ user }) => {
             <Grid item>
               <Avatar
                 className={classes.large}
-                onClick={() => history.push(`/users/${user.userName}`)}
                 src={user.avatar}
                 alt="avatar"
-              />
+                component={NavLink}
+                to={`/users/${user.userName}`}
+              >
+                {userLetter}
+              </Avatar>
             </Grid>
             <Grid item>
-              <Typography
-                className={classes.cursor}
+              <Link
                 variant="subtitle2"
-                onClick={() => history.push(`/users/${user.userName}`)}
+                component={NavLink}
+                to={`/users/${user.userName}`}
+                color="inherit"
               >
                 {user.userName}
-              </Typography>
+              </Link>
               <Typography variant="body2" className={classes.gray}>
                 {user.displayName}
               </Typography>
               <Typography variant="caption" className={classes.gray}>
-                Suggested for you
+                {user.displayName.length > 10 ? "Suggested for you" : "Popular"}
               </Typography>
             </Grid>
           </Grid>
@@ -123,7 +128,7 @@ export default function Suggested() {
       <Container maxWidth="md">
         <Grid container justify="center">
           <Grid item xs={8}>
-            <Typography className={classes.text} variant="h6">
+            <Typography className={classes.text} variant="subtitle1">
               Suggested
             </Typography>
             <Paper elevation={0} className={classes.paper}>

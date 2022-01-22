@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2.5rem",
     marginBottom: theme.spacing(2),
     padding: theme.spacing(3),
-    border: "3px solid #000",
+    border: "3px solid #737373",
     borderRadius: "50%",
   },
   noText: {
@@ -144,7 +144,7 @@ export default function SavedPosts() {
   ) : (
     <div className={classes.noPost}>
       <PhotoCameraOutlinedIcon className={classes.photo} />
-      <Typography variant="h4" className={classes.noText}>
+      <Typography variant="h5" className={classes.noText}>
         No Photos
       </Typography>
     </div>
